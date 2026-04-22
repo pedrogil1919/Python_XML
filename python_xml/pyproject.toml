@@ -1,0 +1,15 @@
+[project]
+name = "python-xml"
+version = "0.1.0"
+description = "Funciones de lectura de archivos xml"
+authors = [
+  { name="Pedro Gil Jiménez", email="pedro.gil@uah.es" }
+]
+readme = "README.md"
+requires-python = ">=3.8"
+
+dependencies = []
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
