@@ -316,7 +316,7 @@ def guardar_atributos_xml(elementos, atributos, valores, formatos=None):
 
 
 @captura_error
-def leer_lista_xml(elementos, nombre, atributo, formato="s", archivo=None):
+def leer_lista_xml(elementos, nombre, atributo, formato="s", archivo=None, vacio=False):
     """
     Lee todos los elmentos con el mismo nombre dentro de otro elemento.
 
@@ -324,6 +324,8 @@ def leer_lista_xml(elementos, nombre, atributo, formato="s", archivo=None):
     - elementos: ver función leer_atributos_xml
     - nombre: nombre del elemento del cual queremos generar la lista.
     - atributo: atributo a devolver de cada elemento anterior.
+    - vacio: si el elemento está vacío, la función muestra un error. Sin embargo
+      si esta variable está a True, no lanza el error.
 
 ###########################################################################
 # Archivo prueba.xml
@@ -378,7 +380,7 @@ print("l4: ", l4)
     lista = ()
     # Obtenemos todos los elementos con el nombre solicitado.
     elementos_lista = raiz.findall(nombre)
-    if len(elementos_lista) == 0:
+    if len(elementos_lista) == 0 and not vacio:
         # Si no hay ningún elemento, se trata de un error.
         raise ValueError
     for campo in elementos_lista:
