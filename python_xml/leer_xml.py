@@ -260,8 +260,8 @@ def leer_atributos_xml(elementos, atributos, formatos=None, archivo=None):
 ###########################################################################
 # Archivo prueba.py
 ###########################################################################
-from python_comun import abrir_archivo_xml
-from python_comun import leer_atributos_xml
+from python_xml import abrir_archivo_xml
+from python_xml import leer_atributos_xml
 
 abrir_archivo_xml("prueba.xml")
 t1 = leer_atributos_xml("elemento1", "TAG2")
@@ -349,8 +349,8 @@ def leer_lista_xml(elementos, nombre, atributo, formato="s", archivo=None, vacio
 ###########################################################################
 # Archivo prueba.py
 ###########################################################################
-from python_comun import abrir_archivo_xml
-from python_comun import leer_lista_xml
+from python_xml import abrir_archivo_xml
+from python_xml import leer_lista_xml
 
 abrir_archivo_xml("prueba.xml")
 l1 = leer_lista_xml("elemento1", "campo", "TAG")
@@ -464,8 +464,8 @@ def leer_lista_atributos_xml(elementos, nombre, atributos,
 ###########################################################################
 # Archivo prueba.py
 ###########################################################################
-from python_comun import abrir_archivo_xml
-from python_comun import leer_lista_atributos_xml
+from python_xml import abrir_archivo_xml
+from python_xml import leer_lista_atributos_xml
 
 abrir_archivo_xml("prueba.xml")
 l1 = leer_lista_atributos_xml("elemento1", "campo", "TAG1")
@@ -505,8 +505,67 @@ print("l5: ", l5)
         lista += (valores,)
     return lista
 
+@captura_error
+def leer_lista_tags_elemento(elementos):
+	"""
+	Devuelve una lista con todos los elementos que hay dentro de otro elemento.
 
-# @captura_error
+	Argumentos:
+	- elementos: ver función leer_atributos_xml
+
+###########################################################################
+# Archivo prueba.xml
+###########################################################################
+<?xml version='1.0' encoding='utf-8'?>
+<prueba>
+    <tabla>
+        <numero/>
+        <nombre TITULO="Nombre" ANCHO="15" ALINEACION="C"/>
+        <valor TITULO="Valor" ANCHO="10" ALINEACION="D"/>
+    </tabla>
+    <subtabla>
+        <tabla2>
+            <numero2/>
+            <nombre2 TITULO="Nombre" ANCHO="15" ALINEACION="C"/>
+            <valor2 TITULO="Valor" ANCHO="10" ALINEACION="D"/>
+        </tabla2>
+	</subtabla>
+    
+</prueba>
+###########################################################################
+
+###########################################################################
+# Archivo prueba.py
+###########################################################################
+from python_xml import abrir_archivo_xml
+from python_xml import leer_lista_tags_elemento
+
+abrir_archivo_xml("prueba.xml")
+tags = leer_lista_tags_elemento("tabla")
+print("tags: ", tags)
+tags = leer_lista_tags_elemento(("subtabla", "tabla2"))
+print("tags: ", tags)
+###########################################################################
+
+	"""
+	raiz = archivo_xml.getroot()
+	# Comprobamos si la raíz es una lista de etiquetas:
+	if not isinstance(elementos, (list, tuple)):
+		elementos = (elementos,)
+	# Descendemos hasta el elemento del nivel indicado.
+	for etiqueta in elementos:
+		raiz = raiz.find(etiqueta)
+
+	lista = ()
+	# Obtenemos todos los elementos con el nombre solicitado.
+	elementos_lista = raiz.findall("*")
+	if len(elementos_lista) == 0:
+		raise ValueError
+	for campo in elementos_lista:
+		lista += (campo.tag,)
+	return lista
+
+@captura_error
 def leer_directorio_xml(elementos, tag):
     """
     Construye un directorio a partir de varios elementos anidados.
@@ -536,8 +595,8 @@ def leer_directorio_xml(elementos, tag):
 ###########################################################################
 # Archivo prueba.py
 ###########################################################################
-from python_comun import abrir_archivo_xml
-from python_comun import leer_directorio_xml
+from python_xml import abrir_archivo_xml
+from python_xml import leer_directorio_xml
 abrir_archivo_xml("prueba.xml")
 var = leer_directorio_xml(
     ("elemento1", "elemento2", "elemento3", "elemento4" ),

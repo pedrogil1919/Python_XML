@@ -8,6 +8,7 @@ from python_xml.leer_xml import (
     leer_directorio_xml,
     leer_lista_atributos_xml,
     leer_lista_xml,
+    leer_lista_tags_elemento,
     guardar_lista_xml
 )
 
@@ -18,5 +19,6 @@ __all__ = [
     'leer_directorio_xml',
     'leer_lista_atributos_xml',
     'leer_lista_xml',
+    'leer_lista_tags_elemento',
     'guardar_lista_xml'
 ]
