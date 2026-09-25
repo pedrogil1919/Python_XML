@@ -1,9 +1,0 @@
-Metadata-Version: 2.4
-Name: python-xml
-Version: 0.1.0
-Summary: Funciones de lectura de archivos xml
-Author-email: Pedro Gil Jiménez <pedro.gil@uah.es>
-Requires-Python: >=3.8
-Description-Content-Type: text/markdown
-License-File: LICENSE
-Dynamic: license-file
